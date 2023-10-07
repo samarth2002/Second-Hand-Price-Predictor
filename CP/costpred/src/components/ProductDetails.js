@@ -1,34 +1,71 @@
-import {useState} from 'react'
-import axios from 'axios'; // Import axios if you haven't already
+import { useState } from 'react';
+import axios from 'axios';
 
 function ProductDetails() {
+    async function getCode(searchQuery) {
+        try {
+            const response = await axios.post('http://localhost:3001/searchRes/getResults', {
+                data: searchQuery,
+            });
 
-    const [desc, setDesc] = useState('')
-
-    const handleSubmit = (e) => {
-        e.preventDefault()
-        axios.get('/searchRes').then((response)=>{
-            console.log(response.data)
-        }).catch((err)=>{
-            console.log(err)
-        })
-
+            return response.data;
+        } catch (error) {
+            console.error('Error:', error);
+            throw error;
+        }
     }
 
-    const handleChange = (e) =>{
-        setDesc(e.target.value)
-        console.log(desc)
-    } 
+    const [desc, setDesc] = useState('');
+    const [results, setResults] = useState([]);
 
+    const processCode = async () => {
+        try {
+            const code = await getCode(desc); 
+            console.log(code.results);
 
-  return (
-    <div className='product-main' onSubmit={handleSubmit}>
-        <form>
-            <input type="text" placeholder='Enter Product Description' value = {desc} onChange = {handleChange}/>
-            <button type='submit'>submit</button>
-        </form>
-    </div>
-  )
+            const newResults = [...results];
+            code.results.forEach((result) => {
+                newResults.push(result);
+            });
+
+            setResults(newResults);
+        } catch (error) {
+            console.error('Error:', error);
+        }
+    };
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        processCode();
+    };
+
+    const handleChange = (e) => {
+        setDesc(e.target.value);
+    };
+
+    return (
+        <div className="product-main">
+            <form onSubmit={handleSubmit}>
+                <input
+                    type="text"
+                    placeholder="Enter Product Description"
+                    value={desc}
+                    onChange={handleChange}
+                />
+                <button type="submit">Submit</button>
+            </form>
+            <div className="display-results">
+                <div className="display-results">
+                    {results.map((result, index) => (
+                        <div key={index}>
+                            <p>Title: {result.title}</p>
+                            <p>Price: {result.price}</p>
+                        </div>
+                    ))}
+                </div>
+
+            </div>
+        </div>
+    );
 }
 
-export default ProductDetails
+export default ProductDetails;
