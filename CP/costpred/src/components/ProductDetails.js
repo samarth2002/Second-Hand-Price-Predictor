@@ -36,7 +36,12 @@ function ProductDetails() {
     };
     const handleSubmit = (e) => {
         e.preventDefault();
+       
+      
+       
+
         processCode();
+       
     };
 
     const handleChange = (e) => {
