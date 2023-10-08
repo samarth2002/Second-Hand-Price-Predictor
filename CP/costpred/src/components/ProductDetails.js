@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import axios from 'axios';
+import './ProductDetails.css'
 
 function ProductDetails() {
     async function getCode(searchQuery) {
@@ -54,15 +55,13 @@ function ProductDetails() {
                 <button type="submit">Submit</button>
             </form>
             <div className="display-results">
-                <div className="display-results">
-                    {results.map((result, index) => (
-                        <div key={index}>
-                            <p>Title: {result.title}</p>
-                            <p>Price: {result.price}</p>
-                        </div>
-                    ))}
-                </div>
-
+                {results.map((result, index) => (
+                    <div key={index} className='display-result-element'>
+                        <img src={result.image} alt={result.title} />
+                        <p><b>Title:</b> {result.title}</p>
+                        <p><b>Price:</b> {result.price}</p>
+                    </div>
+                ))}
             </div>
         </div>
     );

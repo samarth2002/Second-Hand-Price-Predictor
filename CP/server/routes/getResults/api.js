@@ -19,8 +19,9 @@ async function scrapeAmazonSearchResults(searchQuery) {
     searchResultDivs.each((index, element) => {
         const title = $(element).find('span.a-text-normal').text().trim();
         const price = $(element).find('span.a-price span.a-offscreen').text().trim();
+        const image = $(element).find('img.s-image').attr('src'); // Extract the image URL
 
-        results.push({ title, price });
+        results.push({ title, price, image });
     });
 
     await browser.close();
@@ -28,20 +29,11 @@ async function scrapeAmazonSearchResults(searchQuery) {
     return results;
 }
 
-
-
-
-
-
-
-async function getResults(req,res){
-    const searchQuery =  req.body.data
-    console.log(searchQuery)
-    const response = await scrapeAmazonSearchResults(searchQuery)
-    res.json({results: response})
-    
-
+async function getResults(req, res) {
+    const searchQuery = req.body.data;
+    console.log(searchQuery);
+    const response = await scrapeAmazonSearchResults(searchQuery);
+    res.json({ results: response });
 }
 
-
-module.exports = {getResults,}
+module.exports = { getResults };

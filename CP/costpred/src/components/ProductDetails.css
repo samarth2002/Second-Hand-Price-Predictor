@@ -1,0 +1,20 @@
+.display-results {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.display-result-element {
+    margin-top: 10px;
+    width: calc(50% - 10px);
+    background-color: rgb(255, 255, 255);
+    border: 1px solid black;
+}
+.display-result-element img {
+    max-width: 100%;
+    /* Set maximum width to the width of the parent div */
+    max-height: 200px;
+    /* Set maximum height for the image */
+    object-fit: contain;
+    /* Maintain aspect ratio and fit within the div */
+}
