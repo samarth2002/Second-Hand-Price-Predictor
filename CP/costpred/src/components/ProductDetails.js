@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import axios from 'axios';
 import './ProductDetails.css';
+import Button from 'react-bootstrap/Button';
+import UploadOutlinedIcon from '@mui/icons-material/UploadOutlined';
 
 function ProductDetails() {
     const [desc, setDesc] = useState('');
@@ -105,22 +107,23 @@ function ProductDetails() {
     };
     const handleSubmit = async (e) => {
         e.preventDefault();
-        try {
-            const formData = new FormData();
-            formData.append('file', image);
-            const response = await axios.post('http://localhost:3002/upload', formData, {
-                headers: {
-                    'Content-Type': 'multipart/form-data',
-                },
-            });
-            // console.log(response.data.result)
-            setDetected_object(response.data.result)
-            console.log(detected_object)
-            processHtmlCode(response.data.result)
+       // console.log("arushi");
+        // try {
+        //     const formData = new FormData();
+        //     formData.append('file', image);
+        //     const response = await axios.post('http://localhost:3002/upload', formData, {
+        //         headers: {
+        //             'Content-Type': 'multipart/form-data',
+        //         },
+        //     });
+        //     // console.log(response.data.result)
+        //     setDetected_object(response.data.result)
+        //     console.log(detected_object)
+            processHtmlCode("clock")
 
-        } catch (error) {
-            console.error('Error:', error);
-        }
+        // } catch (error) {
+        //     console.error('Error:', error);
+        // }
     };
 
     const handleChange = (e) => {
@@ -134,13 +137,19 @@ function ProductDetails() {
         const file = e.target.files[0];
         setImage(file);
     };
-
+    
     return (
+        <>
         <div className="product-main">
+            <div className="large-box">
             <div className="product-card">
                 {image && <img className="uploaded-img" src={URL.createObjectURL(image)} alt="Uploaded Image" />}
                 <form onSubmit={handleSubmit}>
-                    <label htmlFor="input-file">Upload Image</label>
+                <div className="label-container">
+                    <UploadOutlinedIcon className="upload-icon" />
+                    <label htmlFor="input-file">Drop Image here to upload</label>
+                </div>
+                    
                     <input
                         className="input-file"
                         id="input-file"
@@ -148,24 +157,30 @@ function ProductDetails() {
                         accept="image/*"
                         onChange={handleImageUpload}
                     />
-                    <button type="submit">Submit</button>
+                    {/* <button type="submit">Submit</button> */}
+                    <Button variant="success" type="submit">Submit</Button>{' '}
                 </form>
             </div>
-            {detected_object && <div className='detected-object'>{detected_object}</div>}
-            <div className="display-results">
-                {results.map((result, index) => (
-                    <div key={index} className="display-result-element">
-                        <img src={result.image} alt={result.title} />
-                        <p>
-                            <b>Title:</b> {result.title}
-                        </p>
-                        <p>
-                            <b>Price:</b> {result.price}
-                        </p>
-                    </div>
-                ))}
             </div>
+            {detected_object && <div className='detected-object'>{detected_object}</div>}
+            <br></br>
+            
         </div>
+
+<div className="display-results">
+{results.map((result, index) => (
+    <div key={index} className="display-result-element">
+        <img src={result.image} alt={result.title} />
+        <p>
+            <b>Title:</b> {result.title}
+        </p>
+        <p>
+            <b>Price:</b> {result.price}
+        </p>
+    </div>
+))}
+</div>
+</>
     );
 }
 

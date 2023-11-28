@@ -12,7 +12,7 @@ npm install
 In new terminal:
 [Back end terminal]
 cd CP/server
-npm init
+
 npm install
 
 
@@ -24,4 +24,5 @@ npm start
 
 [Back end terminal]
 cd CP/server
+cd scrape-s
 node index.js
