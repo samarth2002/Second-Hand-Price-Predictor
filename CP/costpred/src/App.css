@@ -1,3 +1,42 @@
-*{
-  margin: 0;
+
+
+.App {
+    font-family: 'Arial', sans-serif;
+  background-color: #f4f4f4;
+  color: #333;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+
+/* General styling for buttons and links */
+button,
+a {
+  background-color: #333;
+  color: white;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  transition-duration: 0.4s;
+  cursor: pointer;
+  border: none;
+  border-radius: 4px;
+}
+
+button:hover,
+a:hover {
+  background-color: #555;
+  color: white;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .App {
+    padding: 20px;
+  }
 }

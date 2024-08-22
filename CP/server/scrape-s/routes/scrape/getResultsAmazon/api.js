@@ -2,6 +2,7 @@ const puppeteer = require('puppeteer');
 const cheerio = require('cheerio');
 
 async function scrapeAmazonSearchResults(searchQuery) {
+    console.log(searchQuery)
     const browser = await puppeteer.launch();
     const page = await browser.newPage();
     await page.goto(`https://www.amazon.in/s?k=${searchQuery}`);
@@ -29,11 +30,11 @@ async function scrapeAmazonSearchResults(searchQuery) {
     return results;
 }
 
-async function getResults(req, res) {
+async function getResultsAmazon(req, res) {
     const searchQuery = req.body.data;
     console.log(searchQuery);
     const response = await scrapeAmazonSearchResults(searchQuery);
     res.json({ results: response });
 }
 
-module.exports = { getResults };
+module.exports = { getResultsAmazon };

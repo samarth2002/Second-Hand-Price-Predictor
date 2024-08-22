@@ -9,6 +9,9 @@
     app.use(bodyParser.json())
     app.use(cors())
 
-    app.use('/searchRes',router)
+    app.use('/apis',router)
 
     app.listen(3001, () => console.log('SERVER STARTED'));
+
+
+    

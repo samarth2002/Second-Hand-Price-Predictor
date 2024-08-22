@@ -1,0 +1,5 @@
+fastapi==0.68.0
+uvicorn==0.15.0
+numpy==1.21.3
+opencv-python==4.5.4.60
+ultralytics==0.0.8  # Ensure to specify the correct version of ultralytics
